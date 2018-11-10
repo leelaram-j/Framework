@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<suite name ="Automation Test">
+    <test name="Smoke Test">
+        <packages>
+            <package name ="TestNGFiles2" />
+
+        </packages>
+    </test>
+</suite>

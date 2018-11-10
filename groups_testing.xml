@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<suite name="Automation Testing">
+    <test name="Smoke Testing with groups">
+        <groups>
+            <run>
+                <include name="Priority1"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="TestNGFiles.annotations">
+            </class>
+            <class name = "TestNGFiles.annotations1"></class>
+        </classes>
+    </test>
+</suite>

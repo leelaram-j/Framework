@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="TestNG Test" default="run" basedir=".">
+
+    <target name="clean">
+        <delete dir="bin" />
+        <delete dir="src" />
+        <delete dir="lib" />
+        <delete dir="test-output" />
+    </target>
+
+    <path id="classpath">
+        <pathelement location="lib/commons-io-2.6.jar" />
+        <pathelement location="lib/selenium-server-standalone-3.14.0.jar" />
+        <pathelement location="lib/testng.jar" />
+        <pathelement location="lib/saxon9-xqj.jar" />
+        <pathelement location="lib/xslt.jar" />
+        <pathelement location="lib/saxon9he.jar" />
+        <pathelement location="lib/saxon9-test.jar" />
+        <pathelement location="lib/saxon-9.1.0.8.jar" />
+        <pathelement location="lib/SaxonLiaison.jar" />
+        <pathelement location="bin" />
+    </path>
+
+
+    <target name="create" depends="clean">
+        <mkdir dir="bin" />
+        <mkdir dir="src" />
+        <mkdir dir="lib" />
+        <mkdir dir="test-output" />
+    </target>
+
+    <target name="copy" depends="create">
+        <copydir src="/Users/lee/eclipse-workspace/Framework/src/TestNGFiles2" dest="/Users/lee/eclipse-workspace/Framework/Ant/build/src"></copydir>
+        <copy todir="/Users/lee/eclipse-workspace/Framework/Ant/build/lib" overwrite="true">
+            <fileset dir="/Users/lee/Downloads/Compressed/jars" includes="**/*.jar"></fileset>
+        </copy>
+    </target>
+
+    <target name="compile" depends="copy">
+        <javac classpathref="classpath" includeantruntime="true" srcdir="/Users/lee/eclipse-workspace/Framework/Ant/build/src" destdir="/Users/lee/eclipse-workspace/Framework/Ant/build/bin" includes="**/*.java">
+        </javac>
+    </target>
+
+    <taskdef name="testng" classname="org.testng.TestNGAntTask">
+        <classpath>
+            <pathelement location="lib/testng.jar" />
+        </classpath>
+    </taskdef>
+
+    <target name="run" depends="compile">
+        <testng classpathref="classpath" outputdir="test-output" suitename="Trial">
+            <xmlfileset dir="/Users/lee/eclipse-workspace/Framework/" includes="ant_input_xml_file.xml" />
+        </testng>
+    </target>
+
+    <target name="xlstreports">
+        <delete dir="${basedir}/XLST_Reports/output" />
+        <mkdir dir="./XLST_Reports/output" />
+        <xslt in="/Users/lee/eclipse-workspace/Framework/Ant/build/test-output/testng-results.xml"
+              style="/Users/lee/eclipse-workspace/Framework/Ant/build/XLST_Reports/testng-results.xsl"
+              out="/Users/lee/eclipse-workspace/Framework/Ant/build/XLST_Reports/output/index.html"
+              processor="SaxonLiaison">
+            <param expression="/Users/lee/eclipse-workspace/Framework/Ant/build/XSLT_Reports/output/" name="testNgXslt.outputDir" />
+            <param expression="true" name="testNgXslt.sortTestCaseLinks" />
+            <param expression="FAIL,SKIP,PASS,CONF,BY_CLASS" name="testNgXslt.testDetailsFilter" />
+            <param expression="true" name="testNgXslt.showRuntimeTotals" />
+            <classpath refid="classpath" />
+        </xslt>
+    </target>
+</project>

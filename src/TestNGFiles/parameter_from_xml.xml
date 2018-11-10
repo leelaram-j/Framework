@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<suite name = "Automation Suite">
+    <test name = "Smoke Test">
+        <parameter name ="adminUserId" value="abcd" />
+        <classes>
+            <class name="TestNGFiles.parameters_from_xml" />
+        </classes>
+    </test>
+</suite>

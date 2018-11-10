@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<suite name="Trial">
+    <test name="Ant_building">
+        <packages>
+            <package name="TestNGFiles2" />
+        </packages>
+    </test>
+</suite>
